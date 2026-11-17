@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>灵动提词 IslandPrompter — 贴紧灵动岛防飘眼悬浮提词器 · 真画中画悬浮窗 · 本地语音跟读</title>
+  <meta name="description" content="把口播高亮行锁死在屏幕顶部前摄/灵动岛下方 60px 黄金区零飘眼！支持免装 App 真·跨软件画中画悬浮窗（直接浮在原相机/美颜相机/视频号开播/腾讯会议上方）与本地浏览器语音识别实时跟读。300字内永久免费，¥12 买断终身（拒绝 ¥39/月包月割韭菜）。">
+  <meta name="theme-color" content="#090d16">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="灵动提词">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="icon-192.svg">
+  <link rel="apple-touch-icon" href="icon-192.svg">
+  <link rel="canonical" href="https://a3152557994-ship-it.github.io/island-prompter/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="灵动提词 IslandPrompter — 贴紧灵动岛防飘眼悬浮提词器 · ¥12 永久买断">
+  <meta property="og:description" content="顶部前摄 60px 黄金区零飘眼 + 免装 App 跨软件画中画悬浮窗 + 本地语音实时跟读。300字内免费，¥12 永久买断！">
+  <meta property="og:url" content="https://a3152557994-ship-it.github.io/island-prompter/">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="sitemap.xml">
+  <link rel="llms-txt" href="llms.txt">
+  <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://a3152557994-ship-it.github.io/island-prompter/#app",
+        "name": "灵动提词 IslandPrompter — 贴紧灵动岛防飘眼悬浮提词器",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "iOS, iPadOS, macOS, Windows, Android, Web PWA",
+        "url": "https://a3152557994-ship-it.github.io/island-prompter/",
+        "description": "将朗读高亮行严格固定在屏幕最顶部中央 60px 前摄/灵动岛黄金区的防飘眼提词器，支持 Canvas 30fps 真·跨软件画中画悬浮窗与浏览器本地语音识别跟读。",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "300字以内短视频口播免费版",
+            "price": "0",
+            "priceCurrency": "CNY",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "name": "Pro 永久买断版（无限字数长篇直播稿 + 真画中画跨软件悬浮窗）",
+            "price": "12.00",
+            "priceCurrency": "CNY",
+            "availability": "https://schema.org/InStock",
+            "url": "https://a3152557994-ship-it.github.io/island-prompter/#pricing"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://a3152557994-ship-it.github.io/island-prompter/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "网页版提词器怎么悬浮在 iPhone 原相机、美颜相机或微信视频号直播画面上方？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "灵动提词将滚屏文字以 30fps 实时渲染到离屏 Canvas 并生成原生视频流唤起系统级画中画（Picture-in-Picture），无需安装 App 即可置顶悬浮在任意相机、会议或直播软件正上方，拖到屏幕最顶端贴紧灵动岛即可直视镜头口播。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "语音跟读需要联网按分钟扣费吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "完全免费且无后端扣费。灵动提词调用设备浏览器原生 SpeechRecognition 本地识别并做同音字模糊对齐，停顿即停、跳读自动对齐，文稿隐私不出本机。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="./">
+        <img src="icon-192.svg" alt="灵动提词图标">
+        <span>灵动提词 IslandPrompter</span>
+        <span id="pro-pill" class="pill-badge">300字内永久免费</span>
+      </a>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button id="btn-top-island-fs" class="btn btn-emerald btn-sm" type="button">👁️ 顶部灵动岛锁眼全屏</button>
+        <a href="#pricing" class="btn btn-outline btn-sm">¥12 永久买断</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-card">
+        <div>
+          <span class="pill-badge">🎯 前摄 60px 黄金锁眼区 · 真画中画跨 App 置顶悬浮</span>
+          <h1>告别眼神乱飘，免装 App 直接浮在原相机与直播画面正上方</h1>
+          <p>
+            把正在念的那一行死死钉在<strong>前摄 / 灵动岛正下方 60px 黄金区</strong>，配合<strong>浏览器本地语音实时跟读</strong>（停顿即停、跳读自动对齐）与<strong>真·画中画悬浮小窗</strong>，拍口播一条过！
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <button id="btn-hero-voice-demo" class="btn btn-emerald btn-lg" type="button">
+              🎬 一键演示「智能语音跟读 + 跳读对齐」
+            </button>
+            <button id="btn-hero-pip" class="btn btn-blue btn-lg" type="button">
+              🪟 弹出真·跨软件画中画悬浮窗 (PiP)
+            </button>
+          </div>
+        </div>
+
+        <div class="pain-box">
+          <div class="pain-quote">🔥 22 万评某头部提词器高赞 1★ 痛点：「39 买断就买了，你 39 一个月？？？」</div>
+          <ul style="margin:0;padding-left:18px;color:var(--ink-secondary);line-height:1.65;">
+            <li><strong>300 字以内短视频稿</strong>：灵动岛锁眼 + 本地语音跟读 + 提词镜镜像 <strong>¥0 永久免费</strong>！</li>
+            <li><strong>长篇直播逐字稿无限字数 + 跨软件画中画悬浮窗</strong>：仅需 <strong>¥12 永久买断</strong>（不到竞品 1 个月月费的 1/3，终身无续费）。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Workbench -->
+    <section class="studio-grid" aria-label="口播提词工作台">
+      <!-- Left: Script Editor & Duration Calculator -->
+      <div class="card">
+        <div class="section-head">
+          <h2>📝 口播逐字稿与时长预估器</h2>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button id="btn-sample-short" class="btn btn-outline btn-sm" type="button">短视频样稿 (178字·免费)</button>
+            <button id="btn-sample-long" class="btn btn-outline btn-sm" type="button">直播带货长稿 (480字·Pro)</button>
+          </div>
+        </div>
+
+        <textarea
+          id="script-input"
+          class="script-editor"
+          aria-label="口播文稿输入框"
+          placeholder="在此粘贴您的口播稿或直播话术（可插入 [停顿] [微笑] 等气口提示，不会计入朗读识别）..."
+        ></textarea>
+
+        <div class="metrics-grid">
+          <div id="tile-char-count" class="metric-tile">
+            <strong id="val-char-count">0 / 300</strong>
+            <span id="lbl-char-quota">口播字数（300字内免费）</span>
+          </div>
+          <div class="metric-tile">
+            <strong id="val-duration">00:00</strong>
+            <span id="lbl-duration-rate">预计口播时长 (230字/分)</span>
+          </div>
+          <div class="metric-tile">
+            <strong id="val-line-count">0 行</strong>
+            <span>窄视幅防扫视断句</span>
+          </div>
+        </div>
+
+        <div class="pace-row" role="radiogroup" aria-label="口播语速档位">
+          <button class="pace-chip" data-cpm="185" type="button">🐢 娓娓道来 (185字/分)</button>
+          <button class="pace-chip active" data-cpm="230" type="button">🎙️ 短视频标准 (230字/分)</button>
+          <button class="pace-chip" data-cpm="285" type="button">⚡ 直播带货 (285字/分)</button>
+        </div>
+      </div>
+
+      <!-- Right: Dynamic Island Top-60px Gaze-Lock Stage + PiP Streamer -->
+      <div class="card">
+        <div class="section-head">
+          <h2>👁️ 灵动岛前摄 60px 黄金锁眼台</h2>
+          <div style="display:flex;gap:6px;">
+            <button id="btn-mirror-toggle" class="btn btn-outline btn-sm" type="button" title="物理分光镜提词器专用">🪞 水平镜像反转</button>
+            <button id="btn-reset-cursor" class="btn btn-outline btn-sm" type="button">↺ 回到开头</button>
+          </div>
+        </div>
+
+        <div id="stage-frame" class="island-device-frame">
+          <div class="dynamic-island-pill">
+            <span>前摄视线锚点</span>
+            <span class="camera-dot"></span>
+          </div>
+
+          <!-- Strictly 60px Top Golden Zone -->
+          <div class="golden-60px-band">
+            <span class="golden-tag">▲ 60px 零飘眼黄金区</span>
+            <span id="lbl-progress-pct" class="golden-tag">0%</span>
+          </div>
+
+          <div id="preview-viewport" class="prompter-scroll-viewport">
+            <div id="preview-track" class="prompter-lines-track"></div>
+          </div>
+        </div>
+
+        <div class="control-deck">
+          <button id="btn-voice-follow" class="btn btn-emerald" type="button">🎙️ 开启本地语音跟读</button>
+          <button id="btn-auto-scroll" class="btn btn-outline" type="button">▶ 匀速滚屏</button>
+          <button id="btn-sim-voice" class="btn btn-outline" type="button">🎬 模拟朗读+跳读</button>
+          <button id="btn-enter-fs" class="btn btn-outline" type="button">⛶ 贴顶全屏提词</button>
+        </div>
+
+        <div class="slider-grid">
+          <div class="slider-box">
+            <label>
+              <span>滚屏速度倍率</span>
+              <strong id="lbl-speed">1.0x</strong>
+            </label>
+            <input id="rng-speed" type="range" min="0.4" max="2.6" step="0.1" value="1.0">
+          </div>
+          <div class="slider-box">
+            <label>
+              <span>窄视幅每行字数</span>
+              <strong id="lbl-line-width">16 字/行</strong>
+            </label>
+            <input id="rng-line-width" type="range" min="10" max="24" step="1" value="16">
+          </div>
+        </div>
+
+        <div class="asr-live-bar">
+          <span id="asr-status-text">💡 状态：待机中（点击任意台词行可手动跳到该句）</span>
+        </div>
+
+        <!-- Offscreen/Mini-Monitor 30fps Canvas Stream -> Native Picture-in-Picture -->
+        <div class="pip-preview-strip">
+          <div style="flex:1;min-width:190px;">
+            <div style="font-weight:700;font-size:13.5px;color:#93c5fd;margin-bottom:3px;">
+              🪟 真·跨软件画中画悬浮窗实时渲染流 (30fps)
+            </div>
+            <div style="font-size:12px;color:var(--ink-muted);margin-bottom:8px;">
+              弹出后可拖到屏幕最顶端贴紧灵动岛，直接悬浮在<strong>原相机、美颜相机、视频号、腾讯会议</strong>画面上！
+            </div>
+            <button id="btn-launch-pip" class="btn btn-blue btn-sm" type="button">
+              🚀 弹出跨软件画中画悬浮窗 (Pro)
+            </button>
+          </div>
+          <canvas id="pip-canvas" width="600" height="280"></canvas>
+          <video id="pip-video" muted playsinline autoplay></video>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing & Ed25519 Activation -->
+    <section id="pricing" class="card">
+      <h2 style="margin:0 0 6px;font-size:21px;">一次买断终身畅用 · 正面击穿「¥39/月」包月刺客</h2>
+      <p style="margin:0;font-size:14px;color:var(--ink-secondary);">
+        拍短视频背词本是高频刚需工具，不该每个月被扣 ¥39（一年 ¥468）！灵动提词坚持清爽买断制：
+      </p>
+
+      <div class="pricing-grid">
+        <div class="plan-box">
+          <div>
+            <span class="pill-badge" style="background:#1e293b;color:#cbd5e1;border-color:#334155;">短视频博主够用</span>
+            <div class="price-tag">¥0 <small>永久免费 · 无广告</small></div>
+            <ul style="padding-left:18px;font-size:13.5px;color:var(--ink-secondary);">
+              <li><strong>300 字以内短视频口播稿</strong>无限次免费使用</li>
+              <li>顶部前摄 / 灵动岛 60px 黄金视线锁定全屏模式</li>
+              <li>浏览器本地语音识别智能跟读（停顿即停、跳读对齐）</li>
+              <li>匀速平滑滚屏 + 物理分光镜水平镜像反转 + 时长计算器</li>
+            </ul>
+          </div>
+          <button id="btn-free-try" class="btn btn-outline" type="button">直接免费开拍（300字内）</button>
+        </div>
+
+        <div class="plan-box pro">
+          <div>
+            <span class="pill-badge">🔥 主播与口播人首选 · 不到竞品 1/3 月费</span>
+            <div class="price-tag">¥12 <small>永久买断 · 终身 0 月租</small></div>
+            <ul style="padding-left:18px;font-size:13.5px;color:var(--ink-secondary);">
+              <li><strong>解锁无限字数长篇逐字稿</strong>（2 小时直播带货话术、课程录制、长视频演讲一稿到底）</li>
+              <li><strong>解锁真·跨软件画中画悬浮提词窗 (PiP)</strong>（无需装 App，直接浮在原相机、美颜相机、腾讯会议、视频号直播正上方！）</li>
+              <li>支持 iPhone / iPad / Mac 多端浏览器离线使用（添加到主屏幕秒变原生质感）</li>
+              <li>离线 <code>OPC1.</code> Ed25519 数字签名激活码本地秒验，隐私文稿绝不上云</li>
+            </ul>
+          </div>
+          <button id="btn-open-order" class="btn btn-emerald btn-lg" type="button">
+            ⚡ ¥12 永久买断获取激活码
+          </button>
+        </div>
+      </div>
+
+      <div class="license-bar">
+        <input
+          id="input-license"
+          class="input-dark"
+          type="text"
+          placeholder="粘贴您的激活码：OPC1.eyJ2IjoxLCJwIjoiaXNsYW5kLXByb21wdGVyIi...sig"
+          aria-label="OPC1 离线激活码"
+        >
+        <button id="btn-verify-license" class="btn btn-emerald" type="button">🔐 本地验签解锁 Pro</button>
+        <button id="btn-clear-license" class="btn btn-outline btn-sm hidden" type="button">清除激活状态</button>
+      </div>
+      <div id="license-banner" class="banner hidden"></div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="card" style="margin-top:20px;">
+      <h2 style="margin:0 0 10px;font-size:18.5px;">常见问题（FAQ）</h2>
+      <details style="margin-bottom:10px;" open>
+        <summary style="cursor:pointer;font-weight:700;">iPhone / Mac 怎么让提词窗悬浮在原相机或视频号开播画面正上方？</summary>
+        <p style="margin:6px 0 0;font-size:13.5px;color:var(--ink-secondary);">
+          解锁 Pro 后点击「弹出跨软件画中画悬浮窗」，系统会弹出一个置顶悬浮小窗。用手指把它推到屏幕最顶端（贴紧灵动岛或刘海），随后切回系统原相机、美颜相机或微信视频号开播即可边看前摄边念稿！
+        </p>
+      </details>
+      <details style="margin-bottom:10px;">
+        <summary style="cursor:pointer;font-weight:700;">念稿时突然卡壳停顿，或者临时跳过两句废话，字幕会乱跑吗？</summary>
+        <p style="margin:6px 0 0;font-size:13.5px;color:var(--ink-secondary);">
+          不会。灵动提词内置本地同音字模糊编辑距离与前向跳读窗口算法：您停下来思考喘气时字幕立刻原地锁死（停顿即停）；临时跳到下一句开头念出 4 个字，字幕会自动对齐跳到新位置！
+        </p>
+      </details>
+      <details>
+        <summary style="cursor:pointer;font-weight:700;">物理分光镜提词器（单反/微单镜头前玻璃反射）能用吗？</summary>
+        <p style="margin:6px 0 0;font-size:13.5px;color:var(--ink-secondary);">
+          完美支持！点击右上角「🪞 水平镜像反转」，全屏锁眼台与画中画视频流都会实时做光学水平镜像翻转，放进提词器反射玻璃底座即刻正像显示。
+        </p>
+      </details>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <div>
+        <strong>灵动提词 IslandPrompter</strong> · 100% 本地离线防飘眼提词工作台 · 下单与发码：
+        <a href="mailto:3152557994@qq.com">3152557994@qq.com</a> /
+        <a href="mailto:a3152557994@gmail.com">a3152557994@gmail.com</a>
+      </div>
+      <div style="display:flex;gap:14px;">
+        <a href="llms.txt">/llms.txt</a>
+        <a href="manifest.webmanifest">PWA Manifest</a>
+        <a href="sitemap.xml">Sitemap</a>
+        <a href="https://github.com/a3152557994-ship-it/island-prompter" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Fullscreen Top-60px Dynamic Island Gaze-Lock Overlay -->
+  <div id="fs-overlay" class="island-fullscreen-overlay hidden" role="dialog" aria-label="顶部灵动岛视线锁定提词全屏台">
+    <div class="fs-top-anchor">
+      <div class="fs-camera-guide">● 请把视线平视此处屏幕顶端前摄 / 灵动岛（60px 零飘眼黄金区） ●</div>
+      <div class="fs-golden-60px"></div>
+      <div class="fs-scroll-box">
+        <div id="fs-track" class="prompter-lines-track"></div>
+      </div>
+    </div>
+
+    <div class="fs-bottom-dock">
+      <button id="btn-fs-voice" class="btn btn-emerald" type="button">🎙️ 语音跟读</button>
+      <button id="btn-fs-scroll" class="btn btn-outline" type="button">▶ 匀速滚屏</button>
+      <button id="btn-fs-mirror" class="btn btn-outline" type="button">🪞 水平镜像</button>
+      <button id="btn-fs-reset" class="btn btn-outline" type="button">↺ 重头开始</button>
+      <button id="btn-fs-exit" class="btn btn-blue" type="button">✕ 退出全屏</button>
+    </div>
+  </div>
+
+  <!-- Order Modal -->
+  <div id="order-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <h3 id="modal-title" style="margin:0;font-size:18px;">解锁灵动提词 Pro 永久买断版（¥12）</h3>
+        <button id="btn-close-modal" class="btn btn-outline btn-sm" type="button">✕</button>
+      </div>
+      <p style="margin:0;font-size:13.5px;color:var(--ink-secondary);">
+        拒绝 ¥39/月包月刺客！仅需 <strong>¥12 一次性买断</strong>，永久解锁<strong>无限字数长篇直播稿 + 免装 App 真·跨软件画中画悬浮窗</strong>。发送下方订单摘要即刻秒发 <code>OPC1.</code> 离线激活码：
+      </p>
+      <div id="order-brief" class="order-code"></div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <a id="mailto-qq" class="btn btn-blue" href="#">📧 QQ邮箱下单 (3152557994@qq.com)</a>
+        <a id="mailto-gmail" class="btn btn-emerald" href="#">📧 Gmail 下单</a>
+        <button id="btn-copy-order" class="btn btn-outline" type="button">📋 复制订单信息</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
